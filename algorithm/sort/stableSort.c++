@@ -10,11 +10,14 @@ struct Trump {
 };
 
 void isStable(vector<Trump> A, vector<Trump>B) {
-  if (A == B) {
+    
+    for (int i = 0; i < A.size(); i++) {
+        if (A.at(i).type != B.at(i). type) {
+            cout << "Not stable" << endl;
+            return;
+        }
+    }
     cout << "Stable" << endl;
-  }else {
-    cout << "Not stable" << endl;
-  }
 }
 
 void showCards(vector<Trump> C) {
