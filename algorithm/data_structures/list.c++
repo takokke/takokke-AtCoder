@@ -17,18 +17,23 @@ void init() {
   sentinel->prev = sentinel;
 }
 
+// 最後の要素を表示(検証用)
+void printLast() {
+    Node *output = sentinel->prev;
+    cout << "末尾の要素: " << output->key << endl;
+}
+
+// 先頭に追加
 void insert(int key) {
   Node *x;
   x = new Node;
   x->key = key;
   x->prev = sentinel;
+
+  sentinel->next->prev = x; // 正体はこれ！！ init()で、sentinel->nextはsentinelになっている。そのprevを設定することになる
+
   x->next = sentinel->next;
-  sentinel->next->prev = x;
   sentinel->next = x;
-  
-  if (sentinel->prev == sentinel) {
-    sentinel->prev = x;
-  }
 }
 
 void deleteFirst () {
@@ -59,6 +64,20 @@ void deleteNode(int key) {
   }
 }
 
+void printList() {
+ // 出力
+  Node *output = sentinel->next;
+  int isf = 0;
+  while (output != sentinel) {
+    if (isf++ > 0) {
+      cout << " ";
+    }
+    cout << output->key;
+    output = output->next;
+  }
+  cout << endl;
+}
+
 int main() {
   int n;
   cin >> n;
@@ -67,6 +86,7 @@ int main() {
   init();
   for (int i = 0; i < n; i++) {
     cin >> com;
+    
     if (com == "insert") {
       int x;
       cin >> x;
@@ -83,14 +103,5 @@ int main() {
   }
 
   // 出力
-  Node *output = sentinel->next;
-  int isf = 0;
-  while (output != sentinel) {
-    if (isf++ > 0) {
-      cout << " ";
-    }
-    cout << output->key;
-    output = output->next;
-  }
-  cout << endl;
+  printList();
 }
