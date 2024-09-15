@@ -8,7 +8,7 @@ WORKDIR /app
 COPY ./main.c++ .
 
 # main.c++をコンパイルして実行可能ファイルmyappを作成
-RUN g++ -o myapp main.c++
+# RUN g++ -o myapp main.c++
 
 # コンパイルしたプログラムを実行
-CMD ["./myapp"]
+CMD ["/bin/bash"]

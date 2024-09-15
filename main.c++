@@ -1,41 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main () {
-  int n;
-  list<int> L;
-  cin >> n;
+int cnt = 0;
 
-  string command;
-  int x;
 
-  for (int i=0; i < n; i++) {
-    cin >> command;
-    if (command == "insert") {
-      cin >> x;
-      L.push_front(x);
-    } else if (command == "deleteFirst") {
-      L.pop_front();
-    } else if (command == "deleteLast") {
-      L.pop_back();
+bool binarySort (vector<int> &S, int n, int key) {
+  int right = n;
+  int left = 0;
+  while (left < right) {
+    int mid = (left + right) / 2;
+
+    if (S.at(mid) == key) {
+     
+      cnt++;
+      return true;
+    } else if (S.at(mid) < key) {
+      
+      left = mid+1;
     } else {
-      cin >> x;
-      for (list<int>::iterator it = L.begin(); it != L.end(); it++ ) {
-        if (*it == x) {
-          L.erase(it);
-          break;
-        }
-      }
+      
+      right = mid;
     }
   }
 
-  int i = 0;
-  for (list<int>::iterator it = L.begin(); it != L.end(); it++) {
-    if(i++) cout << " ";
-    cout << *it;
+  return false;
+}
+
+int main () {
+  int n, q;
+  cin >> n;
+
+  vector<int> S(n);
+
+  for (int i = 0; i < n; i++) {
+    cin >> S.at(i);
   }
 
-  cout << endl;
+  cin >> q;
 
+  int t;
+  for (int i = 0; i < q; i++) {
+    cin >> t;
+    binarySort(S, n, t);
+  }
+
+  cout << cnt << endl;
   return 0;
 }
